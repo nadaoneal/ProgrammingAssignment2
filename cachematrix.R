@@ -3,12 +3,16 @@
 ## * Pass that object to cacheSolve(cacheMatrix) to check the cache for the inverse, if it exists, 
 ##   or calculate the inverse and cache it away for the future
 
-## makeCacheMatrix takes your numerical matrix and then returns a special caching matrix with functions to:
+## makeCacheMatrix takes your numerical matrix and then returns a special caching matrix (really, a list) 
+## with functions to:
 # - set the value of your matrix
 # - get the value of your matrix
 # - set the inverse of your matrix
 # - get the inverse of your matrix
-## This function does not actually calculate the inverse of your matrix
+#
+## This function does not actually calculate the inverse of your matrix!
+## It merely creates the object that can hold the cache for you. 
+## You need to run cacheSolve at least once to actually calculate the inverse of your matrix. 
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
   set <- function(y) {
@@ -28,6 +32,9 @@ makeCacheMatrix <- function(x = matrix()) {
 ## - if it's cached, cacheSolve warns "getting cached data" and returns the cache
 ## - if it's not cached, cacheSolve calculates the inverse of your original matrix, caches it, 
 ##   and returns the value
+##
+## The FIRST time you run this function, it will cache the value of your matrix. 
+## Any subsequent times you run it, it will look in the cache for the value.
 cacheSolve <- function(x, ...) {
   m <- x$getinverse()
   if(!is.null(m)) {
